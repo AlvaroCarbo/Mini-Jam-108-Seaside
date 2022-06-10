@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inputs;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -42,7 +43,9 @@ public class PlayerAgentController : MonoBehaviour
         // if (InputHandler.Instance.MoveInputPhase == InputActionPhase.Performed)
         {
             var origin = transform.position + Vector3.up * 0.5f;
-            var inputDir = new Vector3(-InputHandler.Instance.Move.x, 0, InputHandler.Instance.Move.y);
+            var inputDir = InputHandler.Instance.GetMoveDirection();
+            // inputDir.x = Mathf.Clamp(inputDir.x, -1, 1);
+            inputDir.x = -inputDir.x;
             var forward = Camera.main.transform.forward;
             var cameraDir = new Vector3(forward.x, 0, forward.z);
 
