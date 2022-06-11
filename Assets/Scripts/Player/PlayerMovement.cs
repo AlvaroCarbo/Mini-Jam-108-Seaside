@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
     [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float jumpHeight = 1;
 
     private Vector3 _moveDirection;
     private Vector3 _moveVelocity;
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
     }
 
-    private void HandleRotation()
+    private void HandleRotation(Vector3 move)
     {
         var moveRotation = Vector3.Slerp(transform.forward, move, Time.deltaTime * smoothRotationSpeed);
         transform.rotation = Quaternion.LookRotation(moveRotation);
