@@ -20,66 +20,69 @@ public class PlayerMovement : MonoBehaviour
 
     public float VelocityMagnitude => new Vector2(_moveVelocity.x, _moveVelocity.z).magnitude;
 
+    [SerializeField] private bool groundedPlayer;
+    [SerializeField] private Vector3 playerVelocity;
+    
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
     }
-    
 
-    private void OnDrawGizmos()
+    public void Update()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * 10);
+        groundedPlayer = _controller.isGrounded;
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+        }
 
-        // Draw Sphere
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, 0.5f);
+        // Vector3 move = InputHandler.Instance.GetMoveDirection();
+        var move = HandleDirection();
+        
+        _controller.Move(move * Time.deltaTime * speed);
+        
+        // Rotation
+        if (move != Vector3.zero)
+        {
+            gameObject.transform.forward = move;
+        }
+
+        // Changes the height position of the player..
+        // if (Input.GetButtonDown("Jump") && groundedPlayer)
+        // {
+        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+        // }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        _controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    private Vector3 HandleDirection()
+    {
+        var move = InputHandler.Instance.GetMoveDirection();
+        
+        var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
+        
+        return Quaternion.Euler(0, cameraEulerAngles.y, 0) * move;
+    }
+
+    private void HandleRotation()
+    {
+        // var moveRotation = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * smoothRotationSpeed);
+        // transform.rotation = Quaternion.LookRotation(moveRotation);
     }
 
     public void Move()
     {
-        // _moveDirection = InputHandler.Instance.GetMoveDirection();
-        // var move = _moveDirection;
-        // var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
-        // _moveDirection = Quaternion.Euler(0, cameraEulerAngles.y, 0) * move;
-        // if (move != Vector3.zero)
-        // {
-        //     var moveRotation = Vector3.Slerp(transform.forward, move, Time.deltaTime * smoothRotationSpeed);
-        //     transform.rotation = Quaternion.LookRotation(moveRotation);
-        //     if (_controller.isGrounded)
-        //     {
-        //         _moveVelocity = move * speed;
-        //         _moveVelocity.y += gravity * Time.deltaTime;
-        //
-        //     }
-        //     else
-        //     {
-        //         _moveVelocity.y = _controller.velocity.y + gravity * Time.deltaTime;
-        //     }
-        //     // _moveVelocity = move * speed;
-        //     _controller.Move(_moveVelocity * Time.deltaTime);
-        // }
-        // else
-        // {
-        //     if (_controller.isGrounded)
-        //     {
-        //         _moveVelocity = Vector3.zero;
-        //     }
-        //     else
-        //     {
-        //         _moveVelocity.y += gravity * Time.deltaTime;
-        //         _controller.Move(_moveVelocity * Time.deltaTime);
-        //     }
-        // }
-
-
-        // Move and Rotate the player based on camera direction
+        // Move 
         var moveDirection = InputHandler.Instance.GetMoveDirection();
         var sprinting = InputHandler.Instance.GetIsSprinting();
         var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
 
         speed = sprinting ? runSpeed : walkSpeed;
         moveDirection = Quaternion.Euler(0, cameraEulerAngles.y, 0) * moveDirection;
+        
+        // Smooth Rotate
         if (moveDirection != Vector3.zero)
         {
             var moveRotation = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * smoothRotationSpeed);
@@ -112,8 +115,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void Jump()
     {
         // throw new NotImplementedException();
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        var playerTransform = transform;
+        var position = playerTransform.position;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(position, playerTransform.forward * 10);
+
+        if (_controller == null) return;
+
+        Gizmos.color = _controller.isGrounded ? Color.green : Color.yellow;
+        //Gizmos.DrawMesh(_controller.bounds.center, _moveVelocity);
+        Gizmos.DrawWireCube(_controller.bounds.center, _controller.bounds.size);
+        // Gizmos.DrawSphere(_controller.bounds.center, 0.1f);
+    }
+#endif
 }
