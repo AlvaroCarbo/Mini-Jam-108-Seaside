@@ -13,16 +13,6 @@ namespace Animations
             _animator = GetComponent<Animator>();
         }
 
-        // public void SetBool(string name, bool value)
-        // {
-        //     _animator.SetBool(name, value);
-        // }
-        //
-        // public void SetFloat(string name, float value)
-        // {
-        //     _animator.SetFloat(name, value);
-        // }
-        
         public void SetBool(Enums.AnimatorParameters parameter, bool value) =>
             _animator.SetBool(parameter.ToString(), value);
         
