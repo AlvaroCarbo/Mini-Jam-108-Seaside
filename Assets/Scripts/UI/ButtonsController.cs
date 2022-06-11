@@ -25,7 +25,7 @@ public class ButtonsController : MonoBehaviour
     }
     public void OnSettingsClicked()
     {
-        SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("SettingsMenu 1", LoadSceneMode.Single);
     }
 
     public void OnPlayClicked()
