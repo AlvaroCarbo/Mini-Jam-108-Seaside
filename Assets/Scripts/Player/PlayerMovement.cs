@@ -36,8 +36,9 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
-        // Vector3 move = InputHandler.Instance.GetMoveDirection();
         var move = HandleDirection();
+        
+        HandleSprint();
         
         _controller.Move(move * Time.deltaTime * speed);
         
@@ -66,6 +67,12 @@ public class PlayerMovement : MonoBehaviour
         return Quaternion.Euler(0, cameraEulerAngles.y, 0) * move;
     }
 
+    private void HandleSprint()
+    {
+        var sprinting = InputHandler.Instance.GetIsSprinting();
+        speed = sprinting ? runSpeed : walkSpeed;
+    }
+
     private void HandleRotation()
     {
         // var moveRotation = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * smoothRotationSpeed);
@@ -76,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // Move 
         var moveDirection = InputHandler.Instance.GetMoveDirection();
-        var sprinting = InputHandler.Instance.GetIsSprinting();
         var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
-
-        speed = sprinting ? runSpeed : walkSpeed;
         moveDirection = Quaternion.Euler(0, cameraEulerAngles.y, 0) * moveDirection;
+
+        var sprinting = InputHandler.Instance.GetIsSprinting();
+        speed = sprinting ? runSpeed : walkSpeed;
         
         // Smooth Rotate
         if (moveDirection != Vector3.zero)
