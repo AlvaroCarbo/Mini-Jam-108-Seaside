@@ -6,6 +6,7 @@ namespace Inputs
     public class InputHandler : MonoBehaviour
     {
         public static InputHandler Instance;
+        private bool _isSprinting;
         
         private void Awake()
         {
@@ -22,7 +23,9 @@ namespace Inputs
         private Vector2 _move;
 
         public Vector3 GetMoveDirection() => new(_move.x, 0, _move.y);
+        public bool GetIsSprinting() => _isSprinting;
 
         public void OnMove(InputAction.CallbackContext context) => _move = context.ReadValue<Vector2>();
+        public void OnSprint(InputAction.CallbackContext context) => _isSprinting = context.ReadValueAsButton();
     }
 }
