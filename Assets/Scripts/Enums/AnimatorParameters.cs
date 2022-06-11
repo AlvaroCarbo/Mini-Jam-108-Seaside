@@ -3,6 +3,8 @@ namespace Enums
     public enum AnimatorParameters
     {
         Velocity,
-        Jumping
+        Jumping,
+        Grounded,
+        Jump
     }
 }

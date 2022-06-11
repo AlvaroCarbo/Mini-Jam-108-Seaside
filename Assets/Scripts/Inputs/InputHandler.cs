@@ -8,7 +8,9 @@ namespace Inputs
         public static InputHandler Instance;
         private bool _isSprinting;
         private bool _isJumpPressed;
-        
+        [SerializeField] private float jumpPressedTime;
+        [SerializeField] private float jumpThreshold = 0.5f;
+
         private void Awake()
         {
             if (Instance == null)
@@ -20,15 +22,21 @@ namespace Inputs
                 Destroy(gameObject);
             }
         }
-        
+
         private Vector2 _move;
 
         public Vector3 GetMoveDirection() => new(_move.x, 0, _move.y);
         public bool GetIsSprinting() => _isSprinting;
-        public bool GetIsJumpPressed() => _isJumpPressed;
+        public bool GetIsJumpPressed() => _isJumpPressed && jumpPressedTime + jumpThreshold > Time.time;
 
         public void OnMove(InputAction.CallbackContext context) => _move = context.ReadValue<Vector2>();
         public void OnSprint(InputAction.CallbackContext context) => _isSprinting = context.ReadValueAsButton();
-        public void OnJump(InputAction.CallbackContext context) => _isJumpPressed = context.ReadValueAsButton();
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            _isJumpPressed = context.ReadValueAsButton();
+            if (_isJumpPressed) 
+                jumpPressedTime = Time.time;
+        }
     }
 }

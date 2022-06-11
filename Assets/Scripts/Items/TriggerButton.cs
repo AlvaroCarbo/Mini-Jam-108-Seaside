@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Items
@@ -8,7 +7,10 @@ namespace Items
     public class TriggerButton : MonoBehaviour
     {
         private Animator _animator;
-        private static readonly int Pressed = Animator.StringToHash("Pressed");
+        private static readonly int PressedHash = Animator.StringToHash("Pressed");
+        
+        public delegate void Pressed(bool pressed);
+        public event Pressed OnPressed;
 
         private void Awake()
         {
@@ -19,10 +21,10 @@ namespace Items
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                _animator.SetBool(Pressed, true);
-                
+                _animator.SetBool(PressedHash, true);
                 // GetComponent<AudioSource>().Play();
                 // GetComponent<Renderer>().material.color = Color.green;
+                OnPressed?.Invoke(true);
             }
         }
 
@@ -30,10 +32,10 @@ namespace Items
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                _animator.SetBool(Pressed, false);
-
+                _animator.SetBool(PressedHash, false);
                 // GetComponent<AudioSource>().Play();
                 // GetComponent<Renderer>().material.color = Color.green;
+                OnPressed?.Invoke(false);
             }
         }
     }

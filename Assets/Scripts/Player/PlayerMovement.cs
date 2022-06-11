@@ -1,5 +1,7 @@
 using System;
+using Animations;
 using Cameras;
+using Enums;
 using Inputs;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController _controller;
+    private PlayerAnimatorController _animatorController;
 
     [SerializeField] private float speed;
     public float CurrentSpeed => speed;
@@ -14,19 +17,24 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
-    [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
+    [SerializeField] private float smoothAcceleration;
+
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float jumpHeight = 1;
+
+    [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
 
     private Vector3 _moveDirection;
     private Vector3 _moveVelocity;
 
     [SerializeField] private bool groundedPlayer;
+
     [SerializeField] private Vector3 playerVelocity;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _animatorController = GetComponent<PlayerAnimatorController>();
     }
 
 
@@ -39,8 +47,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         var move = HandleDirection();
-        
-        HandleJump();
+
         if (move != Vector3.zero)
         {
             HandleSprint();
@@ -53,13 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
         _controller.Move(move * Time.deltaTime * speed);
 
-        // Rotation
-
-        // Changes the height position of the player..
-        // if (Input.GetButtonDown("Jump") && groundedPlayer)
-        // {
-        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-        // }
+        HandleJump();
 
         playerVelocity.y += gravity * Time.deltaTime;
         _controller.Move(playerVelocity * Time.deltaTime);
@@ -77,21 +78,8 @@ public class PlayerMovement : MonoBehaviour
     private void HandleSprint()
     {
         var sprinting = InputHandler.Instance.GetIsSprinting();
-        speed = sprinting ? runSpeed : walkSpeed;
-    }
-
-    private void HandleJump()
-    {
-        var jumping = InputHandler.Instance.GetIsJumpPressed();
-        if (groundedPlayer)
-        {
-            IsJumping = false;
-            if (jumping)
-            {
-                playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
-                IsJumping = true;
-            }
-        }
+        speed = Mathf.SmoothStep(speed, sprinting ? runSpeed : walkSpeed, Time.deltaTime * smoothAcceleration);
+        // speed = sprinting ? runSpeed : walkSpeed;
     }
 
     private void HandleRotation(Vector3 move)
@@ -100,54 +88,34 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(moveRotation);
     }
 
-    public void Move()
+    private void HandleJump()
     {
-        // Move 
-        var moveDirection = InputHandler.Instance.GetMoveDirection();
-        var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
-        moveDirection = Quaternion.Euler(0, cameraEulerAngles.y, 0) * moveDirection;
-
-        var sprinting = InputHandler.Instance.GetIsSprinting();
-        speed = sprinting ? runSpeed : walkSpeed;
-
-        // Smooth Rotate
-        if (moveDirection != Vector3.zero)
+        var jumping = InputHandler.Instance.GetIsJumpPressed();
+        if (groundedPlayer)
         {
-            var moveRotation = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * smoothRotationSpeed);
-            transform.rotation = Quaternion.LookRotation(moveRotation);
-            _moveVelocity.y = _moveVelocity.y + gravity * Time.deltaTime;
-            if (_controller.isGrounded)
+            if (IsJumping)
             {
-                _moveVelocity = moveDirection * speed;
-            }
-            else
-            {
-                var fallVelocity = new Vector3(moveDirection.x * speed / 2, _moveVelocity.y,
-                    moveDirection.z * speed / 2);
-                _moveVelocity = fallVelocity;
+                _animatorController.SetTrigger(AnimatorParameters.Grounded);
             }
 
-            _controller.Move(_moveVelocity * Time.deltaTime);
-        }
-        else
-        {
-            _moveVelocity = new Vector3(0, _moveVelocity.y,
-                0);
-        }
+            IsJumping = false;
+            if (jumping)
+            {
+                playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
+                if (!IsJumping)
+                {
+                    _animatorController.SetTrigger(AnimatorParameters.Jump);
+                }
 
-        if (!_controller.isGrounded)
-        {
-            // apply gravity
-            _moveVelocity.y += gravity * Time.deltaTime;
-            _controller.Move(_moveVelocity * Time.deltaTime);
+                IsJumping = true;
+            }
         }
     }
 
-
-    private void Jump()
+    public void MoveHandler()
     {
-        // throw new NotImplementedException();
     }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

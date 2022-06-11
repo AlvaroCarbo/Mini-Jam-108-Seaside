@@ -1,19 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateItem : MonoBehaviour
+namespace Items
 {
-    [SerializeField] Vector3 rotationSpeed;
-    
-    void Update()
+    public class RotateItem : MonoBehaviour
     {
-        transform.Rotate(rotationSpeed * Time.deltaTime);
-    }
+        [SerializeField] private Vector3 rotationSpeed;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other + " entered " + gameObject);
+        private void Update()
+        {
+            transform.Rotate(rotationSpeed * Time.deltaTime);
+        }
+
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     Debug.Log(other + " entered " + gameObject);
+        // }
     }
 }
