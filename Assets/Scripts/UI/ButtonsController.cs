@@ -46,10 +46,12 @@ public class ButtonsController : MonoBehaviour
     public void OnMuteClicked() {
         if (AudioListener.volume != 1f)
         {
+            GameManager.Instance.isMuted = false;
             AudioListener.volume = 1f;
             muteButton.GetComponentInChildren<Image>().sprite = audioSprites[1];
         }
         else {
+            GameManager.Instance.isMuted = true;
             AudioListener.volume = 0f;
             muteButton.GetComponentInChildren<Image>().sprite = audioSprites[0];
         }

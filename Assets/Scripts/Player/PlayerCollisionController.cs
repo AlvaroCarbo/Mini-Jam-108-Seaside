@@ -20,13 +20,30 @@ public class PlayerCollisionController : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("DeadZone"))
+        {
+            Debug.Log("I died :c");
+            //Player is dead
+        }
+
+        if (other.CompareTag("Coin"))
+        {
+            GameManager.Instance.LevelCoins++;
+            Destroy(other.gameObject);
+        }
+    }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        body = hit.collider.attachedRigidbody;
+       
+        
+        //JumpBoost code
         if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y < this.gameObject.GetComponent<Transform>().position.y) {
             this.GetComponent<PlayerMovement>().jumpHeight = 5f;
             hit.collider.gameObject.GetComponent<Animator>().SetBool("Jump", true);
         }
+        body = hit.collider.attachedRigidbody;
         //No RB
         if (body == null || body.isKinematic)
         {
