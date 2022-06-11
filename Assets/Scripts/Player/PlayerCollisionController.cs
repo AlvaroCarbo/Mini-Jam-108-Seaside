@@ -6,7 +6,7 @@ public class PlayerCollisionController : MonoBehaviour
 {
     private Rigidbody body;
     private Vector3 force;
-    private float pushPower = 3f, weight = 6f;
+    private float pushPower = 3f, weight = 2f;
     // Start is called before the first frame update
     void Start()
     {

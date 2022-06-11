@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         _controller = GetComponent<CharacterController>();
     }
 
+
     public void Update()
     {
         groundedPlayer = _controller.isGrounded;
