@@ -26,6 +26,7 @@ namespace Player
         {
             // playerMovement.Move();
             playerAnimatorController.SetFloat(Velocity, playerMovement.CurrentSpeed);
+            playerAnimatorController.SetBool(Jumping, playerMovement.IsJumping);
         }
     }
 }

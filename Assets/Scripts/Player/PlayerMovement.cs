@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed;
     public float CurrentSpeed => speed;
+    public bool IsJumping = false;
+
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
@@ -80,8 +82,15 @@ public class PlayerMovement : MonoBehaviour
     private void HandleJump()
     {
         var jumping = InputHandler.Instance.GetIsJumpPressed();
-        if (_controller.isGrounded && jumping)
-            playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
+        if (groundedPlayer)
+        {
+            IsJumping = false;
+            if (jumping)
+            {
+                playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
+                IsJumping = true;
+            }
+        }
     }
 
     private void HandleRotation(Vector3 move)
