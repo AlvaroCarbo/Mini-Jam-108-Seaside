@@ -33,12 +33,13 @@ public class PlayerMovement : MonoBehaviour
         groundedPlayer = _controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
-            playerVelocity.y = 0f;
+            playerVelocity.y = -1f;
         }
 
         var move = HandleDirection();
         
         HandleSprint();
+        HandleJump();
         
         _controller.Move(move * Time.deltaTime * speed);
         
@@ -71,6 +72,13 @@ public class PlayerMovement : MonoBehaviour
     {
         var sprinting = InputHandler.Instance.GetIsSprinting();
         speed = sprinting ? runSpeed : walkSpeed;
+    }
+
+    private void HandleJump()
+    {
+        var jumping = InputHandler.Instance.GetIsJumpPressed();
+        if (_controller.isGrounded && jumping)
+            playerVelocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
     }
 
     private void HandleRotation()
