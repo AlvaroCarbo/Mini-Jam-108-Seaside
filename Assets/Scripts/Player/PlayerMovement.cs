@@ -35,17 +35,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         var move = HandleDirection();
-
-        HandleSprint();
+        
+        if (move != Vector3.zero)
+        {
+            HandleSprint();
+            HandleRotation(move);
+        }
+        else
+        {
+            speed = 0f;
+        }
 
         _controller.Move(move * Time.deltaTime * speed);
 
         // Rotation
-        if (move != Vector3.zero)
-        {
-            // gameObject.transform.forward = move;
-            HandleRotation(move);
-        }
 
         // Changes the height position of the player..
         // if (Input.GetButtonDown("Jump") && groundedPlayer)
