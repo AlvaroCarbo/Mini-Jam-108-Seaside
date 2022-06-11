@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerCollisionController : MonoBehaviour
 {
     private Rigidbody body;
+    [SerializeField]
     private Vector3 force;
+    [SerializeField]
     private float pushPower = 10f, weight = 2f;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,11 @@ public class PlayerCollisionController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         body = hit.collider.attachedRigidbody;
-
+        if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y < this.gameObject.GetComponent<Transform>().position.y) {
+            this.GetComponent<PlayerMovement>().jumpHeight = 5f;
+            hit.collider.gameObject.GetComponent<Animator>().SetBool("Jump", true);
+            Debug.Log("Hit a jumpboost");
+        }
         //No RB
         if (body == null || body.isKinematic)
         {

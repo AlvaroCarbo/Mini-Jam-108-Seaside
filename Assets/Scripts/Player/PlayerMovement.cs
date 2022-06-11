@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float smoothAcceleration;
 
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jumpHeight = 1;
+    [SerializeField] public float jumpHeight = 1;
 
     [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
 
@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (IsJumping)
             {
+                jumpHeight = 1f;
                 _animatorController.SetTrigger(AnimatorParameters.Grounded);
             }
 
