@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] public bool groundedPlayer;
 
-    [SerializeField] private Vector3 playerVelocity;
+    [SerializeField] public Vector3 playerVelocity;
 
     private void Awake()
     {
