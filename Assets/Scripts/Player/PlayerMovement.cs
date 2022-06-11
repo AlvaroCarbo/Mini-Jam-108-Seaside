@@ -9,20 +9,18 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
 
     [SerializeField] private float speed;
+    public float CurrentSpeed => speed;
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
-    [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float gravity = -9.81f;
 
     private Vector3 _moveDirection;
     private Vector3 _moveVelocity;
 
-    public float VelocityMagnitude => new Vector2(_moveVelocity.x, _moveVelocity.z).magnitude;
-
     [SerializeField] private bool groundedPlayer;
     [SerializeField] private Vector3 playerVelocity;
-    
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -38,16 +36,20 @@ public class PlayerMovement : MonoBehaviour
 
         var move = HandleDirection();
         
-        HandleSprint();
         HandleJump();
-        
-        _controller.Move(move * Time.deltaTime * speed);
-        
-        // Rotation
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            HandleSprint();
+            HandleRotation(move);
         }
+        else
+        {
+            speed = 0f;
+        }
+
+        _controller.Move(move * Time.deltaTime * speed);
+
+        // Rotation
 
         // Changes the height position of the player..
         // if (Input.GetButtonDown("Jump") && groundedPlayer)
@@ -62,9 +64,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 HandleDirection()
     {
         var move = InputHandler.Instance.GetMoveDirection();
-        
+
         var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
-        
+
         return Quaternion.Euler(0, cameraEulerAngles.y, 0) * move;
     }
 
@@ -83,8 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRotation()
     {
-        // var moveRotation = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * smoothRotationSpeed);
-        // transform.rotation = Quaternion.LookRotation(moveRotation);
+        var moveRotation = Vector3.Slerp(transform.forward, move, Time.deltaTime * smoothRotationSpeed);
+        transform.rotation = Quaternion.LookRotation(moveRotation);
     }
 
     public void Move()
@@ -96,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
         var sprinting = InputHandler.Instance.GetIsSprinting();
         speed = sprinting ? runSpeed : walkSpeed;
-        
+
         // Smooth Rotate
         if (moveDirection != Vector3.zero)
         {
