@@ -6,7 +6,7 @@ public class PlayerCollisionController : MonoBehaviour
 {
     private Rigidbody body;
     private Vector3 force;
-    private float pushPower = 3f, weight = 2f;
+    private float pushPower = 10f, weight = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +28,19 @@ public class PlayerCollisionController : MonoBehaviour
             return;
         }
 
+        if (!this.GetComponent<PlayerMovement>().groundedPlayer) {
+            return;
+        }
+        /*
         if (hit.moveDirection.y < -0.3)
         {
             force = new Vector3(0, -0.5f, 0) * (-9.8f) * weight;
         }
         else
         {
-            force = hit.controller.velocity * pushPower;
-        }
+         */
+        force = hit.controller.velocity * pushPower;
+        //}
 
         // Apply the push
         body.AddForceAtPosition(force, hit.point);

@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _moveDirection;
     private Vector3 _moveVelocity;
 
-    [SerializeField] private bool groundedPlayer;
+    [SerializeField] public bool groundedPlayer;
 
     [SerializeField] private Vector3 playerVelocity;
 
