@@ -25,7 +25,7 @@ namespace Player
         private void LateUpdate()
         {
             // playerMovement.Move();
-            playerAnimatorController.SetFloat(Velocity, playerMovement.VelocityMagnitude);
+            playerAnimatorController.SetFloat(Velocity, playerMovement.CurrentSpeed);
         }
     }
 }
