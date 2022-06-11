@@ -20,12 +20,12 @@ namespace Player
 
         private void Update()
         {
-            playerMovement.Move();
         }
 
         private void LateUpdate()
         {
-            playerAnimatorController.SetFloat(Velocity, characterController.velocity.magnitude);
+            // playerMovement.Move();
+            playerAnimatorController.SetFloat(Velocity, playerMovement.VelocityMagnitude);
         }
     }
 }
