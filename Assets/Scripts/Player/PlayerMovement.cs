@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private CharacterController _controller;
 
-    [SerializeField] private float speed = 8f;
+    [SerializeField] private float speed;
+    [SerializeField] private float walkSpeed = 2f;
+    [SerializeField] private float runSpeed = 5f;
     [SerializeField] [Range(0, 10)] private float smoothRotationSpeed = 5f;
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float gravity = -9.81f;
@@ -74,7 +76,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // Move 
         var moveDirection = InputHandler.Instance.GetMoveDirection();
+        var sprinting = InputHandler.Instance.GetIsSprinting();
         var cameraEulerAngles = CameraManager.Instance.cameraTransform.eulerAngles;
+
+        speed = sprinting ? runSpeed : walkSpeed;
         moveDirection = Quaternion.Euler(0, cameraEulerAngles.y, 0) * moveDirection;
         
         // Smooth Rotate
