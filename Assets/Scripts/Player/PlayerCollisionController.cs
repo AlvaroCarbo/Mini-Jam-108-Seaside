@@ -34,13 +34,19 @@ public class PlayerCollisionController : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    public IEnumerator DisableBoost() {
+        yield return new WaitForSeconds(1f);
+        this.GetComponent<PlayerMovement>().jumpHeight = 1f;
+
+    }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
       
         //JumpBoost code
         if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y + 0.2f < this.gameObject.GetComponent<Transform>().position.y) {
             this.GetComponent<PlayerMovement>().jumpHeight = 5f;
-            hit.collider.gameObject.GetComponent<Animator>().SetBool("Jump", true);
+            StartCoroutine(DisableBoost());
+            hit.collider.gameObject.GetComponent<Animator>().SetTrigger("Jump");
         }
         body = hit.collider.attachedRigidbody;
         //No RB
