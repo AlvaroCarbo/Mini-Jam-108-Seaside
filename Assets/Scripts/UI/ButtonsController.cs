@@ -29,6 +29,9 @@ public class ButtonsController : MonoBehaviour
     }
     public void OnRetryClicked()
     {
+        GameManager.Instance.Time = null;
+        GameManager.Instance.TimeFloat = 0f;
+        GameManager.Instance.isPaused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name , LoadSceneMode.Single);
     }
     public void OnMenuClicked() {
