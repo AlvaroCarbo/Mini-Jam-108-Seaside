@@ -43,13 +43,17 @@ public class ButtonsController : MonoBehaviour
     }
     public void OnNextLevelClicked()
     {
+        GameManager.Instance.Time = null;
+        GameManager.Instance.TimeFloat = 0f;
+        GameManager.Instance.isPaused = false;
+        GameManager.Instance.isFinished = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }
     public void OnPlayClicked()
     {
         GameManager.Instance.isFinished = false;
         GameManager.Instance.isPaused = false;
-        SceneManager.LoadScene("LevelTest", LoadSceneMode.Single);
+        SceneManager.LoadScene("LevelJumper", LoadSceneMode.Single);
         
     }
 
