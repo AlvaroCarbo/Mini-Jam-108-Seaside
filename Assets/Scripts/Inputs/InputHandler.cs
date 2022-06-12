@@ -13,6 +13,8 @@ namespace Inputs
         [SerializeField] private float jumpThreshold = 0.5f;
 
         private PlayerAttackController _playerAttackController;
+        
+
 
         private void Awake()
         {
@@ -41,7 +43,9 @@ namespace Inputs
         {
             _isJumpPressed = context.ReadValueAsButton();
             if (_isJumpPressed)
+            {
                 jumpPressedTime = Time.time;
+            }
         }
 
         public void OnAttack(InputAction.CallbackContext context)

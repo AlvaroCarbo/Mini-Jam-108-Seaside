@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool groundedPlayer;
 
     [SerializeField] public Vector3 playerVelocity;
+    
+    public delegate void OnJumpPressed();
+    public event OnJumpPressed OnPressed;
 
     private void Awake()
     {
@@ -106,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!IsJumping)
                 {
                     _animatorController.SetTrigger(AnimatorParameters.Jump);
+                    OnPressed?.Invoke();
                 }
 
                 IsJumping = true;
