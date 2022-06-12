@@ -9,7 +9,7 @@ public class ArrowController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!hit && !other.CompareTag("Player") && !other.CompareTag("Coin"))
+        if (!hit && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Button"))
         {
             StickArrow(other);
             hit = true;
