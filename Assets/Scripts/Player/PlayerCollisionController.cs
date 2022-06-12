@@ -36,10 +36,9 @@ public class PlayerCollisionController : MonoBehaviour
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-       
-        
+      
         //JumpBoost code
-        if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y < this.gameObject.GetComponent<Transform>().position.y) {
+        if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y + 0.2f < this.gameObject.GetComponent<Transform>().position.y) {
             this.GetComponent<PlayerMovement>().jumpHeight = 5f;
             hit.collider.gameObject.GetComponent<Animator>().SetBool("Jump", true);
         }
@@ -53,6 +52,9 @@ public class PlayerCollisionController : MonoBehaviour
         if (!this.GetComponent<PlayerMovement>().groundedPlayer) {
             return;
         }
+
+        if (hit.moveDirection.y < -0.3f)
+            return;
 
         force = hit.gameObject.transform.position - transform.position;
         force.y = 0;
