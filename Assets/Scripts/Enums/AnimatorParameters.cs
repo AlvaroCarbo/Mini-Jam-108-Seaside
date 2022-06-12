@@ -5,6 +5,7 @@ namespace Enums
         Velocity,
         Jumping,
         Grounded,
-        Jump
+        Jump,
+        Interact
     }
 }

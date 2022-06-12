@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ namespace Inputs
         [SerializeField] private float jumpPressedTime;
         [SerializeField] private float jumpThreshold = 0.5f;
 
+        private PlayerAttackController _playerAttackController;
+
         private void Awake()
         {
             if (Instance == null)
@@ -21,6 +24,8 @@ namespace Inputs
             {
                 Destroy(gameObject);
             }
+            
+            _playerAttackController = GetComponent<PlayerAttackController>();
         }
 
         private Vector2 _move;
@@ -35,8 +40,16 @@ namespace Inputs
         public void OnJump(InputAction.CallbackContext context)
         {
             _isJumpPressed = context.ReadValueAsButton();
-            if (_isJumpPressed) 
+            if (_isJumpPressed)
                 jumpPressedTime = Time.time;
+        }
+
+        public void OnAttack(InputAction.CallbackContext context)
+        {
+            if (context.ReadValueAsButton())
+            {
+                _playerAttackController.Attack();
+            }
         }
     }
 }

@@ -1244,7 +1244,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1260,7 +1260,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406640141}
-  m_LocalRotation: {x: 0.14521314, y: 8.619646e-15, z: -9.284736e-16, w: 0.98940045}
+  m_LocalRotation: {x: 0.14521313, y: -0.000000032966827, z: 0.0000000048385016, w: 0.98940045}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1476,7 +1476,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1533,7 +1533,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2031,7 +2031,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3071,7 +3071,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3467,7 +3467,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.0907173, y: 1}
+    m_SensorSize: {x: 1.5233463, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3843,6 +3843,7 @@ GameObject:
   - component: {fileID: 919132147579595504}
   - component: {fileID: 919132147579595506}
   - component: {fileID: 919132147579595508}
+  - component: {fileID: 919132147579595510}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3941,6 +3942,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d39adfd2-6bbe-4193-9814-8ed82be5b332
     m_ActionName: Gameplay/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 919132147579595504}
+        m_TargetAssemblyTypeName: Inputs.InputHandler, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bdf3be13-f65f-49c8-8398-e0f8c8fa942e
+    m_ActionName: Gameplay/Attack[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4013,6 +4030,18 @@ MonoBehaviour:
   playerMovement: {fileID: 919132147579595508}
   playerAnimatorController: {fileID: 919132147579595506}
   characterController: {fileID: 0}
+--- !u!114 &919132147579595510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147579595501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a8fac557b5d75439eda813522af656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919132147640873201
 GameObject:
   m_ObjectHideFlags: 0

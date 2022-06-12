@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace Animations
@@ -25,5 +26,16 @@ namespace Animations
         public void SetTrigger(Enums.AnimatorParameters parameter) =>
             _animator.SetTrigger(parameter.ToString());
         
+        public void PlayTargetAnimation(Enums.AnimatorParameters parameter) =>
+            _animator.Play(parameter.ToString());
+        
+        public void PlayTargetAnimation(AnimatorStates targetAnimation, bool isInteracting, int indexLayer)
+        {
+            _animator.applyRootMotion = isInteracting;
+            SetBool(AnimatorParameters.Interact, isInteracting);
+            _animator.CrossFade(targetAnimation.ToString(), 0.2f, indexLayer);
+            
+            Debug.Log("Play animation: " + targetAnimation);
+        }
     }
 }
