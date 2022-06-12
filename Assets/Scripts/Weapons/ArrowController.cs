@@ -21,10 +21,11 @@ public class ArrowController : MonoBehaviour
     }
 
     private void StickArrow(Collider col) {
-        col.transform.Translate(depth * -Vector2.right);
-        transform.parent = col.transform;
         Destroy(gameObject.GetComponent<Rigidbody>());
         Destroy(gameObject.GetComponent<BoxCollider>());
+        col.transform.Translate(depth * Vector2.zero);
+        //transform.parent = col.transform;  * -Vector2.right
+
     }
     // Start is called before the first frame update
     void Start()
