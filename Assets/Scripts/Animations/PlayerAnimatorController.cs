@@ -34,8 +34,6 @@ namespace Animations
             _animator.applyRootMotion = isInteracting;
             SetBool(AnimatorParameters.Interact, isInteracting);
             _animator.CrossFade(targetAnimation.ToString(), 0.2f, indexLayer);
-            
-            Debug.Log("Play animation: " + targetAnimation);
         }
     }
 }
