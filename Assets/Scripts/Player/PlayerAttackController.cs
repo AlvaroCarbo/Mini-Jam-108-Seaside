@@ -31,6 +31,8 @@ namespace Player
 
             projectile.GetComponent<Rigidbody>()
                 .AddForce(transform.forward * ((RangedWeaponData) currentWeapon).projectileSpeed, ForceMode.Impulse);
+            
+            Destroy(projectile, 10f);
         }
     }
 }

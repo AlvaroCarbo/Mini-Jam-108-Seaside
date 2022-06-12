@@ -8,6 +8,8 @@ TagManager:
   - DeadZone
   - Coin
   - UIPlayer
+  - Arrow
+  - Button
   layers:
   - Default
   - TransparentFX

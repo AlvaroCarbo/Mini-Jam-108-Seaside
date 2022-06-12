@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace Items
 {
-    public class TriggerEvent : MonoBehaviour
+    public class TriggerEventSwiper : MonoBehaviour
     {
         [SerializeField] private TriggerButton triggerButton;
 
