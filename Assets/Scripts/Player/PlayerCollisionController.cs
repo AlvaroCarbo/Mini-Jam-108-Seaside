@@ -35,6 +35,7 @@ public class PlayerCollisionController : MonoBehaviour
             {
                 GameManager.Instance.LevelCoins++;
             }
+            ParticleManager.Instance.StartParticleCoin(other.transform);
             Destroy(other.gameObject);
         }
     }
