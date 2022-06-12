@@ -25,12 +25,16 @@ public class PlayerCollisionController : MonoBehaviour
         if (other.CompareTag("DeadZone"))
         {
             Debug.Log("I died :c");
+            GameManager.Instance.PlayerDead();
             //Player is dead
         }
 
         if (other.CompareTag("Coin"))
         {
-            GameManager.Instance.LevelCoins++;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LevelCoins++;
+            }
             Destroy(other.gameObject);
         }
     }

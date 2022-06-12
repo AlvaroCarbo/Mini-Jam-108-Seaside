@@ -27,7 +27,10 @@ public class ButtonsController : MonoBehaviour
     {
         
     }
-
+    public void OnRetryClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name , LoadSceneMode.Single);
+    }
     public void OnMenuClicked() {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
@@ -35,10 +38,16 @@ public class ButtonsController : MonoBehaviour
     {
         SceneManager.LoadScene("SettingsMenu 1", LoadSceneMode.Single);
     }
-
+    public void OnNextLevelClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+    }
     public void OnPlayClicked()
     {
+        GameManager.Instance.isFinished = false;
+        GameManager.Instance.isPaused = false;
         SceneManager.LoadScene("LevelTest", LoadSceneMode.Single);
+        
     }
 
     public void OnHelpClicked()

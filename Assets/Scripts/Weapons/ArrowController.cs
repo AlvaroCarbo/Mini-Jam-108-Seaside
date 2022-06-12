@@ -9,7 +9,7 @@ public class ArrowController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!hit && !other.CompareTag("Player") && !other.CompareTag("Coin") && other.gameObject.isStatic)
+        if (!hit && !other.CompareTag("Player") && !other.CompareTag("Coin"))
         {
             StickArrow(other);
             hit = true;
@@ -24,7 +24,7 @@ public class ArrowController : MonoBehaviour
         Destroy(gameObject.GetComponent<Rigidbody>());
         Destroy(gameObject.GetComponent<BoxCollider>());
         col.transform.Translate(depth * Vector2.zero);
-        //transform.parent = col.transform;  * -Vector2.right
+        transform.parent = col.transform;
 
     }
     // Start is called before the first frame update

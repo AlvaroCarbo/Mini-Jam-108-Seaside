@@ -4,8 +4,9 @@ using UnityEngine;
 using TMPro;
 public class PlayerUIController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI coinsText;
-    [SerializeField] private int coinsMax;
+    [SerializeField] private TextMeshProUGUI coinsText, timeTextFinishUI, coinsTextFinishUI;
+    [SerializeField] public int coinsMax;
+    [SerializeField] public GameObject DeadUI, FinishUI;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,15 @@ public class PlayerUIController : MonoBehaviour
         if (GameManager.Instance == null) {
             return;
         }
-
         coinsText.text = GameManager.Instance.LevelCoins + " / " + coinsMax;
+    }
+
+    public void SetUpFinishUI()
+    {
+        timeTextFinishUI.text = "Time "+GameManager.Instance.Time;
+        coinsTextFinishUI.text = "Coins "+GameManager.Instance.LevelCoins+"/"+coinsMax;
+        GameManager.Instance.Time = null;
+        GameManager.Instance.TimeFloat = 0f;
+        GameManager.Instance.LevelCoins = 0;
     }
 }
