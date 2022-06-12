@@ -197,6 +197,17 @@
                 },
                 {
                     "name": "",
+                    "id": "135005f5-1930-44af-8211-cbddca2a8d10",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ed53737b-e115-4efb-a7c2-3c5a740a0011",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -208,8 +219,30 @@
                 },
                 {
                     "name": "",
+                    "id": "f1da14bb-ab14-4d16-b513-aa3363150f8a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2cfacbc3-2e5b-46a3-908f-62cab1f38fdf",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4df4bff5-eac0-4e7b-b3a6-58c8823fe96a",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
