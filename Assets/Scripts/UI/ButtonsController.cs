@@ -11,7 +11,15 @@ public class ButtonsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SceneManager.GetActiveScene().name.Equals("SettingsMenu 1")) {
+            if (GameManager.Instance.isMuted) {
+                muteButton.GetComponent<Image>().sprite = audioSprites[0];
+            }
+            else {
+                muteButton.GetComponent<Image>().sprite = audioSprites[1];
+            }
+            
+        }
     }
 
     // Update is called once per frame
@@ -44,10 +52,10 @@ public class ButtonsController : MonoBehaviour
     }
 
     public void OnMuteClicked() {
-        if (AudioListener.volume != 1f)
+        if (AudioListener.volume != 0.5f)
         {
             GameManager.Instance.isMuted = false;
-            AudioListener.volume = 1f;
+            AudioListener.volume = 0.5f;
             muteButton.GetComponentInChildren<Image>().sprite = audioSprites[1];
         }
         else {

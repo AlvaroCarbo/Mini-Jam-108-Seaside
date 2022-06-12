@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d4a641e87338648b20b578dcbf48e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backGroundMusic: {fileID: 0}
+  backGroundMusic: {fileID: 8300000, guid: 8b4b165586bc252449a63dd9fe38642e, type: 3}
   isMuted: 0
   LevelCoins: 0
 --- !u!4 &679621682
@@ -950,7 +950,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
