@@ -15,7 +15,7 @@ namespace Inputs
         private PlayerAttackController _playerAttackController;
 
         public delegate void OnEscapePressed();
-        public event OnEscapePressed OnPressed;
+        public event OnEscapePressed OnEscapePress;
 
 
         private void Awake()
@@ -43,7 +43,8 @@ namespace Inputs
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            _isJumpPressed = context.ReadValueAsButton();
+            // _isJumpPressed = context.ReadValueAsButton();
+            _isJumpPressed = context.phase == InputActionPhase.Performed;
             if (_isJumpPressed)
             {
                 jumpPressedTime = Time.time;
@@ -52,7 +53,8 @@ namespace Inputs
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton())
+            // if (context.ReadValueAsButton())
+            if (context.phase.Equals(InputActionPhase.Performed))
             {
                 _playerAttackController.Attack();
             }
@@ -62,7 +64,7 @@ namespace Inputs
         {
             if (context.phase == InputActionPhase.Started)
             {
-                OnPressed?.Invoke();
+                OnEscapePress?.Invoke();
             }
         }
     }

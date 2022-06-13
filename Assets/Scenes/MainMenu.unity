@@ -1689,7 +1689,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muteButton: {fileID: 0}
-  settingsButton: {fileID: 1039076640}
   audioSprites: []
 --- !u!1001 &3782577609528450238
 PrefabInstance:

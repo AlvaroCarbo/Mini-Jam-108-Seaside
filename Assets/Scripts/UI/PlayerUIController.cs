@@ -20,7 +20,7 @@ public class PlayerUIController : MonoBehaviour
         helpToggle = false;
 
         // if (InputHandler.Instance != null)
-        InputHandler.Instance.OnPressed += OnSettingsToggle;
+        InputHandler.Instance.OnEscapePress += OnSettingsToggle;
     }
 
     // Update is called once per frame
@@ -49,12 +49,12 @@ public class PlayerUIController : MonoBehaviour
     private void OnDestroy()
     {
         // if (InputHandler.Instance != null)
-        InputHandler.Instance.OnPressed -= OnSettingsToggle;
+        InputHandler.Instance.OnEscapePress -= OnSettingsToggle;
     }
 
     private void OnDisable()
     {
         // if (InputHandler.Instance != null)
-        InputHandler.Instance.OnPressed -= OnSettingsToggle;
+        InputHandler.Instance.OnEscapePress -= OnSettingsToggle;
     }
 }
