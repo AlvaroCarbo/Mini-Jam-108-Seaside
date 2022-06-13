@@ -43,6 +43,7 @@ namespace Items
             
             _toggle = true;
             
+            OnSwipe();
         }
 
         private void OnSwipe()
