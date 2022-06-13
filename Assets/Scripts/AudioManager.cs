@@ -20,6 +20,9 @@ public class AudioManager : MonoBehaviour
     // Singleton instance.
     public static AudioManager Instance = null;
     
+    // Audio clips.
+    [SerializeField] private AudioClip coinClip;
+    
     // Initialize the singleton instance.
     private void Awake()
     {
@@ -67,4 +70,6 @@ public class AudioManager : MonoBehaviour
         MusicSource.Stop();
     }
 
+    public void PlayCoinSound() => EffectsSource.PlayOneShot(coinClip);
+    
 }
