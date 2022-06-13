@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelBall.unity
     guid: 6d592582559ad2044a2ae516de6f5730
+  - enabled: 1
+    path: Assets/Scenes/LevelSwiper.unity
+    guid: abe58253eec2aa7478ebcf7681dc3190
   m_configObjects: {}
