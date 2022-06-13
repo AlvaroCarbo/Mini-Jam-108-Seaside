@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Inputs;
+
 public class ButtonsController : MonoBehaviour
 {
-    public GameObject muteButton;
+    public GameObject muteButton, settingsButton;
     public Sprite[] audioSprites;
+    private bool HelpMenu;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,29 +24,45 @@ public class ButtonsController : MonoBehaviour
             }
             
         }
+        HelpMenu = false;
+        InputHandler.Instance.OnPressed += OnSettingsClicked;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        InputHandler.Instance.OnPressed -= OnSettingsClicked;
     }
+
+    private void OnDisable()
+    {
+        InputHandler.Instance.OnPressed -= OnSettingsClicked;
+    }
+
     public void OnRetryClicked()
     {
-        GameManager.Instance.Time = null;
-        GameManager.Instance.TimeFloat = 0f;
-        GameManager.Instance.isPaused = false;
-        GameManager.Instance.LevelCoins = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name , LoadSceneMode.Single);
+        if (!GameManager.Instance)
+        {
+            GameManager.Instance.Time = null;
+            GameManager.Instance.TimeFloat = 0f;
+            GameManager.Instance.isPaused = false;
+            GameManager.Instance.LevelCoins = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        }
     }
+
     public void OnMenuClicked() {
         GameManager.Instance.LevelCoins = 0;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
+
     public void OnSettingsClicked()
     {
-        SceneManager.LoadScene("SettingsMenu 1", LoadSceneMode.Single);
+        //SceneManager.LoadScene("SettingsMenu 1", LoadSceneMode.Single);
+        HelpMenu = !HelpMenu;
+        settingsButton.SetActive(HelpMenu);
     }
+
+
     public void OnNextLevelClicked()
     {
         GameManager.Instance.Time = null;
@@ -51,6 +71,7 @@ public class ButtonsController : MonoBehaviour
         GameManager.Instance.isFinished = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }
+
     public void OnPlayClicked()
     {
         GameManager.Instance.isFinished = false;
@@ -84,4 +105,6 @@ public class ButtonsController : MonoBehaviour
         
 
     }
+
+
 }

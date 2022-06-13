@@ -13,7 +13,9 @@ namespace Inputs
         [SerializeField] private float jumpThreshold = 0.5f;
 
         private PlayerAttackController _playerAttackController;
-        
+
+        public delegate void OnEscapePressed();
+        public event OnEscapePressed OnPressed;
 
 
         private void Awake()
@@ -53,6 +55,14 @@ namespace Inputs
             if (context.ReadValueAsButton())
             {
                 _playerAttackController.Attack();
+            }
+        }
+
+        public void OnEscape(InputAction.CallbackContext context) 
+        {
+            if (context.ReadValueAsButton()) 
+            {
+                OnPressed!.Invoke();
             }
         }
     }
