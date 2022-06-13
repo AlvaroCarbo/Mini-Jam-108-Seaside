@@ -32,6 +32,7 @@ public class ButtonsController : MonoBehaviour
         GameManager.Instance.Time = null;
         GameManager.Instance.TimeFloat = 0f;
         GameManager.Instance.isPaused = false;
+        GameManager.Instance.LevelCoins = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name , LoadSceneMode.Single);
     }
     public void OnMenuClicked() {
