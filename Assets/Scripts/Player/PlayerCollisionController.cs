@@ -46,7 +46,9 @@ public class PlayerCollisionController : MonoBehaviour
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-      
+        if (hit.collider.gameObject.CompareTag("Spike")){
+            GameManager.Instance.PlayerDead();
+        }
         //JumpBoost code
         if (hit.collider.gameObject.CompareTag("JumpBoost") && hit.collider.gameObject.GetComponent<Transform>().position.y + 0.2f < this.gameObject.GetComponent<Transform>().position.y) {
             this.GetComponent<PlayerMovement>().jumpHeight = 5f;

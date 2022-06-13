@@ -10,6 +10,7 @@ TagManager:
   - UIPlayer
   - Arrow
   - Button
+  - Spike
   layers:
   - Default
   - TransparentFX
