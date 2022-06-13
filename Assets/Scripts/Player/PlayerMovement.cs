@@ -55,8 +55,10 @@ public class PlayerMovement : MonoBehaviour
         {
             HandleSprint();
             HandleRotation(move);
-            ParticleManager.Instance.StartParticleDust(transform);
-            
+            if (groundedPlayer)
+            {
+                ParticleManager.Instance.StartParticleDust(transform);
+            }
         }
         else
         {

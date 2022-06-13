@@ -43,17 +43,13 @@ public class ParticleManager : MonoBehaviour
 	public void StartParticleCoin(Transform position)
 	{
 		var particles = Instantiate(particleCoin, position.position, position.rotation);
-		//particleCoin.SetActive(true);
-		Destroy(particles, particleCoin.main.duration);
+		Destroy(particles.gameObject, particles.main.duration);
 	}
 	
 	public void StartParticleDust(Transform position)
 	{
-		//particleCoin.SetActive(true);
 		var particles = Instantiate(particleDust, position.position, position.rotation);
-
-			time = 0f;
-			Destroy(particles, 2f);
+		Destroy(particles.gameObject, particles.main.duration);
 	}
 	//	ParticleManager.Instance.StartParticleCoin(other.transform);
 
