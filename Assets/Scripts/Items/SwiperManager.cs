@@ -7,7 +7,9 @@ namespace Items
     {
         public static SwiperManager Instance;
         
-        [SerializeField] private List<GameObject> swiper;
+        [SerializeField] private List<GameObject> swiperMode1;
+        [SerializeField] private List<GameObject> swiperMode2;
+        
         private static readonly int ActionHash = Animator.StringToHash("Action");
 
         private PlayerMovement _playerMovement;
@@ -38,14 +40,23 @@ namespace Items
             {
                 _playerMovement.OnPressed += OnSwipe;
             }
+            
+            _toggle = true;
+            
         }
 
         private void OnSwipe()
         {
             _toggle = !_toggle;
-            foreach (var sw in swiper)
+            
+            foreach (var sw in swiperMode1)
             {
                 sw.GetComponent<Animator>().SetFloat(ActionHash, _toggle ? 1 : 0);
+            }
+            
+            foreach (var sw in swiperMode2)
+            {
+                sw.GetComponent<Animator>().SetFloat(ActionHash, !_toggle ? 1 : 0);
             }
         }
 
