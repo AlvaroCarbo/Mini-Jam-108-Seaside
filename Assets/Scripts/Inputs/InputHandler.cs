@@ -60,9 +60,9 @@ namespace Inputs
 
         public void OnEscape(InputAction.CallbackContext context) 
         {
-            if (context.ReadValueAsButton()) 
+            if (context.phase == InputActionPhase.Started)
             {
-                OnPressed!.Invoke();
+                OnPressed?.Invoke();
             }
         }
     }

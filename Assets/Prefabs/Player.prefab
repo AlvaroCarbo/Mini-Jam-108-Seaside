@@ -438,6 +438,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bdf3be13-f65f-49c8-8398-e0f8c8fa942e
     m_ActionName: Gameplay/Attack[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8267737171885416118}
+        m_TargetAssemblyTypeName: Inputs.InputHandler, Assembly-CSharp
+        m_MethodName: OnEscape
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 53abd27c-9e5f-4381-a897-0ac521f41dfc
+    m_ActionName: Gameplay/Escape[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

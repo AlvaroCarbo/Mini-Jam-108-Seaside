@@ -35,12 +35,12 @@ public class GameManager : MonoBehaviour
     }
 	public void LevelFinished() {
 		GameObject.FindGameObjectWithTag("UIPlayer").GetComponent<PlayerUIController>().SetUpFinishUI();
-		GameObject.FindGameObjectWithTag("UIPlayer").GetComponent<PlayerUIController>().FinishUI.SetActive(true);
+		GameObject.FindGameObjectWithTag("UIPlayer").GetComponent<PlayerUIController>().finishUI.SetActive(true);
 		isFinished = true;
 		Destroy(GameObject.FindGameObjectWithTag("Player").gameObject); 
 	}
 	public void PlayerDead() {
-		GameObject.FindGameObjectWithTag("UIPlayer").GetComponent<PlayerUIController>().DeadUI.SetActive(true);
+		GameObject.FindGameObjectWithTag("UIPlayer").GetComponent<PlayerUIController>().deadUI.SetActive(true);
 		isPaused = true;
 		GameObject.FindGameObjectWithTag("Player").gameObject.SetActive(false);
 	}
