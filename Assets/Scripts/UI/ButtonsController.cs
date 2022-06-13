@@ -36,6 +36,7 @@ public class ButtonsController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name , LoadSceneMode.Single);
     }
     public void OnMenuClicked() {
+        GameManager.Instance.LevelCoins = 0;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
     public void OnSettingsClicked()
