@@ -3,6 +3,7 @@ using Animations;
 using Cameras;
 using Enums;
 using Inputs;
+using Particles;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]

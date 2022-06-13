@@ -9,6 +9,8 @@ namespace UI
         public GameObject muteButton;
         public Sprite[] audioSprites;
         
+        [SerializeField] private GameObject levelsPanel;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -43,8 +45,6 @@ namespace UI
         public void OnSettingsClicked()
         {
             SceneManager.LoadScene("SettingsMenu 1", LoadSceneMode.Single);
-            // HelpMenu = !HelpMenu;
-            // settingsButton.SetActive(HelpMenu);
         }
 
 
@@ -59,9 +59,12 @@ namespace UI
 
         public void OnPlayClicked()
         {
-            GameManager.Instance.isFinished = false;
-            GameManager.Instance.isPaused = false;
-            SceneManager.LoadScene("LevelJumper", LoadSceneMode.Single);
+            levelsPanel.SetActive(true);
+        }
+
+        public void OnHomeClicked(GameObject menuToClose)
+        {
+            menuToClose.SetActive(false);
         }
 
         public void OnHelpClicked()
@@ -88,6 +91,13 @@ namespace UI
                 AudioListener.volume = 0f;
                 muteButton.GetComponentInChildren<Image>().sprite = audioSprites[0];
             }
+        }
+        
+        public void LoadScene(string sceneName)
+        {
+            GameManager.Instance.isFinished = false;
+            GameManager.Instance.isPaused = false;
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
     }
 }
